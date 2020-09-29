@@ -45,12 +45,13 @@ public class Database {
     HikariConfig config = new HikariConfig();
     config.setJdbcUrl("jdbc:h2:mem:sample");
     config.setMaximumPoolSize(20);
+    config.setDriverClassName("org.h2.Driver");
     dataSource = new HikariDataSource(config);
     System.out.println("Datasource initialized");
 
     System.out.println("Doing migrations");
     Flyway flyway = Flyway.configure().dataSource(dataSource).locations("classpath:db").load();
     flyway.migrate();
-    System.out.println("Doing done");
+    System.out.println("Migrations done");
   }
 }

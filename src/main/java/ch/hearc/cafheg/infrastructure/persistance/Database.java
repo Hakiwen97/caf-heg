@@ -12,15 +12,9 @@ public class Database {
   private static DataSource dataSource;
   private static ThreadLocal<Connection> connection = new ThreadLocal<>();
 
-  private Database() {}
+  public Database() {}
 
-  public static Database initialize() {
-    Database database = new Database();
-    database.init();
-    return database;
-  }
-
-  public static Connection getConnection() {
+  static Connection getConnection() {
     return connection.get();
   }
 
@@ -40,7 +34,7 @@ public class Database {
     }
   }
 
-  private void init() {
+  public void start() {
     System.out.println("Initializing datasource");
     HikariConfig config = new HikariConfig();
     config.setJdbcUrl("jdbc:h2:mem:sample");

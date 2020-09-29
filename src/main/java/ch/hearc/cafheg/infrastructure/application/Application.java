@@ -26,7 +26,8 @@ public class Application extends SpringBootServletInitializer {
   }
 
   private static void init() {
-    Database.initialize();
+    Database database = new Database();
+    database.start();
   }
 
   @Override

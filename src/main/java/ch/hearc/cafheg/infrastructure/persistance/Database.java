@@ -34,6 +34,10 @@ public class Database {
     }
   }
 
+  public DataSource getDataSource() {
+    return dataSource;
+  }
+
   public void start() {
     System.out.println("Initializing datasource");
     HikariConfig config = new HikariConfig();
@@ -42,10 +46,5 @@ public class Database {
     config.setDriverClassName("org.h2.Driver");
     dataSource = new HikariDataSource(config);
     System.out.println("Datasource initialized");
-
-    System.out.println("Doing migrations");
-    Flyway flyway = Flyway.configure().dataSource(dataSource).locations("classpath:db").load();
-    flyway.migrate();
-    System.out.println("Migrations done");
   }
 }

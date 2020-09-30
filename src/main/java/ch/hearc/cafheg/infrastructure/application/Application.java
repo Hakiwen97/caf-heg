@@ -1,18 +1,12 @@
 package ch.hearc.cafheg.infrastructure.application;
 
 import ch.hearc.cafheg.infrastructure.persistance.Database;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import java.util.function.Supplier;
+import ch.hearc.cafheg.infrastructure.persistance.Migrations;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import org.flywaydb.core.Flyway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -21,18 +15,21 @@ import org.springframework.context.annotation.ComponentScan;
 public class Application extends SpringBootServletInitializer {
 
   public static void main(String[] args) {
-    init();
+    start();
     SpringApplication.run(Application.class, args);
   }
 
-  private static void init() {
+  private static void start() {
     Database database = new Database();
+    Migrations migrations = new Migrations(database);
+
     database.start();
+    migrations.start();
   }
 
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
     super.onStartup(servletContext);
-    init();
+    start();
   }
 }

@@ -4,11 +4,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import ch.hearc.cafheg.business.common.Montant;
+import ch.hearc.cafheg.infrastructure.api.RESTController;
 import ch.hearc.cafheg.infrastructure.pdf.PDFExporter;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -20,6 +26,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.objectweb.asm.TypeReference;
 
 class AllocationServiceTest {
 
@@ -27,6 +34,17 @@ class AllocationServiceTest {
 
   private AllocataireMapper allocataireMapper;
   private AllocationMapper allocationMapper;
+
+  String json = "{\n" +
+          "  \"enfantResidance\" : \"Neuchâtel\",\n" +
+          "  \"parent1Residence\" : \"Neuchâtel\",\n" +
+          "  \"parent2Residence\" : \"Bienne\",\n" +
+          "  \"parent1ActiviteLucrative\" : true,\n" +
+          "  \"parent2ActiviteLucrative\" : true,\n" +
+          "  \"parent1Salaire\" : 2500,\n" +
+          "  \"parent2Salaire\" : 3000\n" +
+          "}";
+
 
   @BeforeEach
   void setUp() {
@@ -75,5 +93,10 @@ class AllocationServiceTest {
         () -> assertThat(all.get(1).getDebut()).isEqualTo(LocalDate.now()),
         () -> assertThat(all.get(1).getFin()).isNull());
   }
+
+//  void getParentDroitAllocation_GivenParentsSameResidence_ShouldBeP1(){
+//    Mockito.when(allocationService.getParentDroitAllocation())
+//  }
+
 
 }

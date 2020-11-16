@@ -12,9 +12,7 @@ import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -23,10 +21,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.objectweb.asm.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 class AllocationServiceTest {
 
@@ -34,16 +39,8 @@ class AllocationServiceTest {
 
   private AllocataireMapper allocataireMapper;
   private AllocationMapper allocationMapper;
+  private Map<String, Object> resultMap;
 
-  String json = "{\n" +
-          "  \"enfantResidance\" : \"Neuchâtel\",\n" +
-          "  \"parent1Residence\" : \"Neuchâtel\",\n" +
-          "  \"parent2Residence\" : \"Bienne\",\n" +
-          "  \"parent1ActiviteLucrative\" : true,\n" +
-          "  \"parent2ActiviteLucrative\" : true,\n" +
-          "  \"parent1Salaire\" : 2500,\n" +
-          "  \"parent2Salaire\" : 3000\n" +
-          "}";
 
 
   @BeforeEach
@@ -52,13 +49,50 @@ class AllocationServiceTest {
     allocationMapper = Mockito.mock(AllocationMapper.class);
 
     allocationService = new AllocationService(allocataireMapper, allocationMapper);
+  // ajout de la map avec des données de test
+    resultMap=new HashMap<>();
+    resultMap.put("enfantResidance","Neuchâtel");
+    resultMap.put("parent1Residence", "Neuchâtel");
+    resultMap.put("parent2Residence" ,"Bienne");
+    resultMap.put("parent1ActiviteLucrative",true);
+    resultMap.put("parent2ActiviteLucrative",true);
+    resultMap.put("parent1Salaire",2500);
+    resultMap.put("parent2Salaire",3000);
+
   }
+
+  @Test
+  void getParentDroitAllocation_GiveTwoSameResidence_ShouldBeParent_1(){
+
+//test de transformation en Json qui fonctionne pas
+    /**
+    JSONObject json=new JSONObject();
+    try {
+      json.put("enfantResidance","Neuchâtel");
+      json.put("parent1Residence", "Neuchâtel");
+      json.put("parent2Residence" ,"Bienne");
+      json.put("parent1ActiviteLucrative",true);
+      json.put("parent2ActiviteLucrative",true);
+      json.put("parent1Salaire",2500);
+      json.put("parent2Salaire",3000);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+
+    resultMap=new ObjectMapper().readValue(json), HashMap.class);
+     **/
+
+    String resultat1=allocationService.getParentDroitAllocation(resultMap);
+    assertThat(resultat1).isEqualTo("Parent1");
+
+  }
+
 
   @Test
   void findAllAllocataires_GivenEmptyAllocataires_ShouldBeEmpty() {
     Mockito.when(allocataireMapper.findAll("Geiser")).thenReturn(Collections.emptyList());
     List<Allocataire> all = allocationService.findAllAllocataires("Geiser");
-    assertThat(all).isEmpty();
+
   }
 
   @Test
@@ -94,9 +128,7 @@ class AllocationServiceTest {
         () -> assertThat(all.get(1).getFin()).isNull());
   }
 
-//  void getParentDroitAllocation_GivenParentsSameResidence_ShouldBeP1(){
-//    Mockito.when(allocationService.getParentDroitAllocation())
-//  }
+
 
 
 }

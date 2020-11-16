@@ -86,6 +86,13 @@ class AllocationServiceTest {
     assertThat(resultat1).isEqualTo("Parent1");
 
   }
+  @Test
+  void getParentDroitAllocation_GiveSalaryP1UpperSalaryP2_ShouldBeParent_1(){
+    String resultat1=allocationService.getParentDroitAllocation(resultMap);
+    assertThat(resultat1).isEqualTo("Parent1");
+
+  }
+
 
 
   @Test

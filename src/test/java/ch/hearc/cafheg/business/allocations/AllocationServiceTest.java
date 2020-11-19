@@ -92,8 +92,30 @@ class AllocationServiceTest {
     assertThat(resultat).isEqualTo("Parent1");
 
   }
+  /**
+  @Test
+  void getParentDroitAllocation_GivenSalaryP1LowerSalaryP2_ShouldBeParent_2(){
+    String result=allocationService.getParentDroitAllocation(resultMap);
+    assertThat(result).isEqualTo("Parent2");
+  }
+   **/
+  @Test
+  void getParentDroitAllocation_GivenParentsResidencesAreTheSame_ShouldBeParent_1(){
+    String result=allocationService.getParentDroitAllocation(resultMap);
+    assertThat(result).isEqualTo("Parent1");
+  }
 
+  @Test
+  void getParentDroitAllocation_GivenChildResidenceEqualToParent_1(){
+    String resultat=allocationService.getParentDroitAllocation(resultMap);
+    assertThat(resultat).isEqualTo("Parent1");
 
+  }
+  @Test
+  void getParentDroitAllocation_GivenChildResidenceEqualToParent_2(){
+    String resultat=allocationService.getParentDroitAllocation(resultMap);
+    assertThat(resultat).isEqualTo("Parent1");
+  }
 
   @Test
   void findAllAllocataires_GivenEmptyAllocataires_ShouldBeEmpty() {

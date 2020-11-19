@@ -81,15 +81,15 @@ class AllocationServiceTest {
 
     resultMap=new ObjectMapper().readValue(json), HashMap.class);
      **/
-
-    String resultat1=allocationService.getParentDroitAllocation(resultMap);
-    assertThat(resultat1).isEqualTo("Parent1");
+    //Mockito.when(allocationService.getParentDroitAllocation(resultMap)).thenReturn("Parent1");
+    String resultat=allocationService.getParentDroitAllocation(resultMap);
+    assertThat(resultat).isEqualTo("Parent1");
 
   }
   @Test
   void getParentDroitAllocation_GiveSalaryP1UpperSalaryP2_ShouldBeParent_1(){
-    String resultat1=allocationService.getParentDroitAllocation(resultMap);
-    assertThat(resultat1).isEqualTo("Parent1");
+    String resultat=allocationService.getParentDroitAllocation(resultMap);
+    assertThat(resultat).isEqualTo("Parent1");
 
   }
 

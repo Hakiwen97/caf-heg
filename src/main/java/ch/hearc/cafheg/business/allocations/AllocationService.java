@@ -1,6 +1,7 @@
 package ch.hearc.cafheg.business.allocations;
 
 import ch.hearc.cafheg.business.common.Montant;
+import ch.hearc.cafheg.business.versements.Enfant;
 import ch.hearc.cafheg.business.versements.VersementAllocation;
 import ch.hearc.cafheg.business.versements.VersementAllocationNaissance;
 import ch.hearc.cafheg.business.versements.VersementParentEnfant;
@@ -11,6 +12,7 @@ import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AllocationService {
@@ -35,9 +37,48 @@ public class AllocationService {
   public List<Allocation> findAllocationsActuelles() {
     return allocationMapper.findAll();
   }
-
+/**
   public String getParentDroitAllocation(Map<String, Object> parameters) {
     System.out.println("Déterminer le droit aux allocations");
+    String eR = (String)parameters.getOrDefault("enfantResidance", "");
+    Boolean p1AL = (Boolean)parameters.getOrDefault("parent1ActiviteLucrative", false);
+    String p1Residence = (String)parameters.getOrDefault("parent1Residence", "");
+    Boolean p2AL = (Boolean)parameters.getOrDefault("parent2ActiviteLucrative", false);
+    String p2Residence = (String)parameters.getOrDefault("parent2Residence", "");
+    Boolean pEnsemble = (Boolean)parameters.getOrDefault("parentsEnsemble", false);
+    Number salaireP1 = (Number) parameters.getOrDefault("parent1Salaire", BigDecimal.ZERO);
+    Number salaireP2 = (Number) parameters.getOrDefault("parent2Salaire", BigDecimal.ZERO);
+
+    if(eR.equals(p1Residence) || eR.equals(p2Residence)) {
+      return PARENT_1;
+    }
+
+    if(salaireP1.doubleValue() > salaireP2.doubleValue()) {
+      return PARENT_1;
+    }
+
+    if(salaireP1.doubleValue() < salaireP2.doubleValue()) {
+      return PARENT_2;
+    }
+
+    if(eR.equals(p1Residence) && eR.equals(p2Residence)) {
+      return PARENT_1;
+    }
+
+    if(eR.equals(p1Residence)) {
+      return PARENT_1;
+    }
+
+    if(eR.equals(p2Residence)) {
+      return PARENT_1;
+    }
+
+    return PARENT_2;
+  }
+ **/
+  public String getParentDroitAllocation(Set<Allocataire> personnes, Enfant enfant) {
+    System.out.println("Déterminer le droit aux allocations");
+    String er=enfant
     String eR = (String)parameters.getOrDefault("enfantResidance", "");
     Boolean p1AL = (Boolean)parameters.getOrDefault("parent1ActiviteLucrative", false);
     String p1Residence = (String)parameters.getOrDefault("parent1Residence", "");

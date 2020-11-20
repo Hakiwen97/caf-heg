@@ -29,6 +29,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -40,6 +41,7 @@ class AllocationServiceTest {
   private AllocataireMapper allocataireMapper;
   private AllocationMapper allocationMapper;
   private Map<String, Object> resultMap;
+  private ParentDroitAllocation parent;
 
 
 
@@ -49,7 +51,12 @@ class AllocationServiceTest {
     allocationMapper = Mockito.mock(AllocationMapper.class);
 
     allocationService = new AllocationService(allocataireMapper, allocationMapper);
-  // ajout de la map avec des données de test
+
+    ParentDroitAllocation parent=Mockito.mock(ParentDroitAllocation.class);
+    parent=new ParentDroitAllocation("Neuchâtel",true,"Neuchâtel",
+            true,"Bienne",true,new BigDecimal(2500),new BigDecimal(3000));
+
+
     resultMap=new HashMap<>();
     resultMap.put("enfantResidance","Neuchâtel");
     resultMap.put("parent1Residence", "Neuchâtel");
@@ -59,29 +66,11 @@ class AllocationServiceTest {
     resultMap.put("parent1Salaire",2500);
     resultMap.put("parent2Salaire",3000);
 
+
   }
 
   @Test
   void getParentDroitAllocation_GiveTwoSameResidence_ShouldBeParent_1(){
-
-//test de transformation en Json qui fonctionne pas
-    /**
-    JSONObject json=new JSONObject();
-    try {
-      json.put("enfantResidance","Neuchâtel");
-      json.put("parent1Residence", "Neuchâtel");
-      json.put("parent2Residence" ,"Bienne");
-      json.put("parent1ActiviteLucrative",true);
-      json.put("parent2ActiviteLucrative",true);
-      json.put("parent1Salaire",2500);
-      json.put("parent2Salaire",3000);
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
-
-    resultMap=new ObjectMapper().readValue(json), HashMap.class);
-     **/
-    //Mockito.when(allocationService.getParentDroitAllocation(resultMap)).thenReturn("Parent1");
     String resultat=allocationService.getParentDroitAllocation(resultMap);
     assertThat(resultat).isEqualTo("Parent1");
 

@@ -37,7 +37,7 @@ public class AllocationService {
   public List<Allocation> findAllocationsActuelles() {
     return allocationMapper.findAll();
   }
-
+/**
   public String getParentDroitAllocation(Map<String, Object> parameters) {
     System.out.println("Déterminer le droit aux allocations");
     String eR = (String)parameters.getOrDefault("enfantResidance", "");
@@ -75,7 +75,7 @@ public class AllocationService {
 
     return PARENT_2;
   }
- /**
+ **/
   public String getParentDroitAllocation(ParentDroitAllocation parent) {
     String eR = parent.getEnfantResidance();
     Boolean p1AL=parent.isParent1ActiviteLucrative();
@@ -95,7 +95,7 @@ public class AllocationService {
     }
 
 
-    if(salaireP1.compareTo(salaireP2)==1) {
+    if(salaireP1.doubleValue() > salaireP2.doubleValue()) {
       return PARENT_1;
     }
 
@@ -117,5 +117,5 @@ public class AllocationService {
 
     return PARENT_2;
   }
-  **/
+
 }

@@ -52,7 +52,7 @@ class AllocationServiceTest {
 
     allocationService = new AllocationService(allocataireMapper, allocationMapper);
 
-    ParentDroitAllocation parent=Mockito.mock(ParentDroitAllocation.class);
+    //ParentDroitAllocation parent=Mockito.mock(ParentDroitAllocation.class);
     parent=new ParentDroitAllocation("Neuchâtel",true,"Neuchâtel",
             true,"Bienne",true,new BigDecimal(2500),new BigDecimal(3000));
 
@@ -71,13 +71,13 @@ class AllocationServiceTest {
 
   @Test
   void getParentDroitAllocation_GiveTwoSameResidence_ShouldBeParent_1(){
-    String resultat=allocationService.getParentDroitAllocation(resultMap);
+    String resultat=allocationService.getParentDroitAllocation(parent);
     assertThat(resultat).isEqualTo("Parent1");
 
   }
   @Test
   void getParentDroitAllocation_GiveSalaryP1UpperSalaryP2_ShouldBeParent_1(){
-    String resultat=allocationService.getParentDroitAllocation(resultMap);
+    String resultat=allocationService.getParentDroitAllocation(parent);
     assertThat(resultat).isEqualTo("Parent1");
 
   }
@@ -90,19 +90,19 @@ class AllocationServiceTest {
    **/
   @Test
   void getParentDroitAllocation_GivenParentsResidencesAreTheSame_ShouldBeParent_1(){
-    String result=allocationService.getParentDroitAllocation(resultMap);
+    String result=allocationService.getParentDroitAllocation(parent);
     assertThat(result).isEqualTo("Parent1");
   }
 
   @Test
   void getParentDroitAllocation_GivenChildResidenceEqualToParent_1(){
-    String resultat=allocationService.getParentDroitAllocation(resultMap);
+    String resultat=allocationService.getParentDroitAllocation(parent);
     assertThat(resultat).isEqualTo("Parent1");
 
   }
   @Test
   void getParentDroitAllocation_GivenChildResidenceEqualToParent_2(){
-    String resultat=allocationService.getParentDroitAllocation(resultMap);
+    String resultat=allocationService.getParentDroitAllocation(parent);
     assertThat(resultat).isEqualTo("Parent1");
   }
 

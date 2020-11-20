@@ -41,17 +41,18 @@ public class RESTController {
       "parent2Salaire" : 3000
   }
    */
-
+/**
   @PostMapping("/droits/quel-parent")
   public String getParentDroitAllocation(@RequestBody Map<String, Object> params) {
     return inTransaction(() -> allocationService.getParentDroitAllocation(params));
   }
-   /**
+ **/
+
   @PostMapping("/droits/quel-parent")
   public String getParentDroitAllocation(@RequestBody ParentDroitAllocation parent) {
     return inTransaction(() -> allocationService.getParentDroitAllocation(parent));
   }
-    **/
+
 
   @GetMapping("/allocataires")
   public List<Allocataire> allocataires(

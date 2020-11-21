@@ -78,14 +78,13 @@ public class AllocationService {
  **/
   public String getParentDroitAllocation(ParentDroitAllocation parent) {
     String eR = parent.getEnfantResidance();
-    Boolean p1AL=parent.isParent1ActiviteLucrative();
-    String p1Residence=parent.getParent1Residence();
-    Boolean p2AL=parent.isParent2ActiviteLucrative();
-    String p2Residence=parent.getParent2Residence();
+    Boolean p1AL=parent.getParent1().isActiviteLucrative();
+    String p1Residence=parent.getParent1().getResidence();
+    Boolean p2AL=parent.getParent2().isActiviteLucrative();
+    String p2Residence=parent.getParent2().getResidence();
     Boolean pEnsemble=parent.isParentsEnsemble();
-    BigDecimal salaireP1;
-    salaireP1=parent.getParent1Salaire();
-    BigDecimal salaireP2=parent.getParent2Salaire();
+    BigDecimal salaireP1=parent.getParent1().getSalaire();
+    BigDecimal salaireP2=parent.getParent2().getSalaire();
 
 
     System.out.println("Déterminer le droit aux allocations");

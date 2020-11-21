@@ -41,7 +41,7 @@ class AllocationServiceTest {
   private AllocataireMapper allocataireMapper;
   private AllocationMapper allocationMapper;
   private Map<String, Object> resultMap;
-  private ParentDroitAllocation parent;
+  private ParentDroitAllocation parents;
 
 
 
@@ -53,8 +53,8 @@ class AllocationServiceTest {
     allocationService = new AllocationService(allocataireMapper, allocationMapper);
 
     //ParentDroitAllocation parent=Mockito.mock(ParentDroitAllocation.class);
-    parent=new ParentDroitAllocation("Neuchâtel",true,"Neuchâtel",
-            true,"Bienne",true,new BigDecimal(2500),new BigDecimal(3000));
+    parents=new ParentDroitAllocation("Neuchâtel",true,
+           new Parent(true,"Neuchâtel",new BigDecimal(2500)),new Parent(true,"Bienne",new BigDecimal(3000)));
 
 
     resultMap=new HashMap<>();
@@ -71,13 +71,13 @@ class AllocationServiceTest {
 
   @Test
   void getParentDroitAllocation_GiveTwoSameResidence_ShouldBeParent_1(){
-    String resultat=allocationService.getParentDroitAllocation(parent);
+    String resultat=allocationService.getParentDroitAllocation(parents);
     assertThat(resultat).isEqualTo("Parent1");
 
   }
   @Test
   void getParentDroitAllocation_GiveSalaryP1UpperSalaryP2_ShouldBeParent_1(){
-    String resultat=allocationService.getParentDroitAllocation(parent);
+    String resultat=allocationService.getParentDroitAllocation(parents);
     assertThat(resultat).isEqualTo("Parent1");
 
   }
@@ -90,19 +90,19 @@ class AllocationServiceTest {
    **/
   @Test
   void getParentDroitAllocation_GivenParentsResidencesAreTheSame_ShouldBeParent_1(){
-    String result=allocationService.getParentDroitAllocation(parent);
+    String result=allocationService.getParentDroitAllocation(parents);
     assertThat(result).isEqualTo("Parent1");
   }
 
   @Test
   void getParentDroitAllocation_GivenChildResidenceEqualToParent_1(){
-    String resultat=allocationService.getParentDroitAllocation(parent);
+    String resultat=allocationService.getParentDroitAllocation(parents);
     assertThat(resultat).isEqualTo("Parent1");
 
   }
   @Test
   void getParentDroitAllocation_GivenChildResidenceEqualToParent_2(){
-    String resultat=allocationService.getParentDroitAllocation(parent);
+    String resultat=allocationService.getParentDroitAllocation(parents);
     assertThat(resultat).isEqualTo("Parent1");
   }
 

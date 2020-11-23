@@ -37,11 +37,22 @@ public class Database {
   public DataSource getDataSource() {
     return dataSource;
   }
-
+/**
   public void start() {
     System.out.println("Initializing datasource");
     HikariConfig config = new HikariConfig();
     config.setJdbcUrl("jdbc:h2:mem:sample");
+    config.setMaximumPoolSize(20);
+    config.setDriverClassName("org.h2.Driver");
+    dataSource = new HikariDataSource(config);
+    System.out.println("Datasource initialized");
+  }
+ **/
+
+  public void start() {
+    System.out.println("Initializing datasource");
+    HikariConfig config = new HikariConfig();
+    config.setJdbcUrl("jdbc:h2:~/testt");
     config.setMaximumPoolSize(20);
     config.setDriverClassName("org.h2.Driver");
     dataSource = new HikariDataSource(config);

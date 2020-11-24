@@ -4,12 +4,23 @@ import java.math.BigDecimal;
 
 public class ParentDroitAllocation {
     private String enfantResidance;
+
+    public Canton getEnfantCanton() {
+        return enfantCanton;
+    }
+
+    public void setEnfantCanton(Canton enfantCanton) {
+        this.enfantCanton = enfantCanton;
+    }
+
+    private Canton enfantCanton;
     private boolean parentsEnsemble;
     private Parent parent1;
     private Parent parent2;
 
-    public ParentDroitAllocation(String enfantResidance, boolean parentsEnsemble, Parent parent1, Parent parent2) {
+    public ParentDroitAllocation(String enfantResidance,Canton enfantCanton, boolean parentsEnsemble, Parent parent1, Parent parent2) {
         this.enfantResidance = enfantResidance;
+        this.enfantCanton = enfantCanton;
         this.parentsEnsemble = parentsEnsemble;
         this.parent1 = parent1;
         this.parent2 = parent2;

@@ -1,120 +1,105 @@
 package ch.hearc.cafheg.business.allocations;
 
-import ch.hearc.cafheg.business.common.Montant;
-import ch.hearc.cafheg.business.versements.Enfant;
-import ch.hearc.cafheg.business.versements.VersementAllocation;
-import ch.hearc.cafheg.business.versements.VersementAllocationNaissance;
-import ch.hearc.cafheg.business.versements.VersementParentEnfant;
-import ch.hearc.cafheg.infrastructure.pdf.PDFExporter;
+
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
-import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
-import java.math.BigDecimal;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class AllocationService {
 
-  private static final String PARENT_1 = "Parent1";
-  private static final String PARENT_2 = "Parent2";
+    private static final String PARENT_1 = "Parent1";
+    private static final String PARENT_2 = "Parent2";
 
-  private final AllocataireMapper allocataireMapper;
-  private final AllocationMapper allocationMapper;
+    private final AllocataireMapper allocataireMapper;
+    private final AllocationMapper allocationMapper;
 
-  public AllocationService(
-      AllocataireMapper allocataireMapper,
-      AllocationMapper allocationMapper) {
-    this.allocataireMapper = allocataireMapper;
-    this.allocationMapper = allocationMapper;
-  }
-
-  public List<Allocataire> findAllAllocataires(String likeNom) {
-    return allocataireMapper.findAll(likeNom);
-  }
-
-  public List<Allocation> findAllocationsActuelles() {
-    return allocationMapper.findAll();
-  }
-/**
-  public String getParentDroitAllocation(Map<String, Object> parameters) {
-    System.out.println("Déterminer le droit aux allocations");
-    String eR = (String)parameters.getOrDefault("enfantResidance", "");
-    Boolean p1AL = (Boolean)parameters.getOrDefault("parent1ActiviteLucrative", false);
-    String p1Residence = (String)parameters.getOrDefault("parent1Residence", "");
-    Boolean p2AL = (Boolean)parameters.getOrDefault("parent2ActiviteLucrative", false);
-    String p2Residence = (String)parameters.getOrDefault("parent2Residence", "");
-    Boolean pEnsemble = (Boolean)parameters.getOrDefault("parentsEnsemble", false);
-    Number salaireP1 = (Number) parameters.getOrDefault("parent1Salaire", BigDecimal.ZERO);
-    Number salaireP2 = (Number) parameters.getOrDefault("parent2Salaire", BigDecimal.ZERO);
-
-    if(eR.equals(p1Residence) || eR.equals(p2Residence)) {
-      return PARENT_1;
+    public AllocationService(
+            AllocataireMapper allocataireMapper,
+            AllocationMapper allocationMapper) {
+        this.allocataireMapper = allocataireMapper;
+        this.allocationMapper = allocationMapper;
     }
 
-    if(salaireP1.doubleValue() > salaireP2.doubleValue()) {
-      return PARENT_1;
+    public List<Allocataire> findAllAllocataires(String likeNom) {
+        return allocataireMapper.findAll(likeNom);
     }
 
-    if(salaireP1.doubleValue() < salaireP2.doubleValue()) {
-      return PARENT_2;
-    }
-
-    if(eR.equals(p1Residence) && eR.equals(p2Residence)) {
-      return PARENT_1;
-    }
-
-    if(eR.equals(p1Residence)) {
-      return PARENT_1;
-    }
-
-    if(eR.equals(p2Residence)) {
-      return PARENT_1;
-    }
-
-    return PARENT_2;
-  }
- **/
-  public String getParentDroitAllocation(ParentDroitAllocation parent) {
-    String eR = parent.getEnfantResidance();
-    Boolean p1AL=parent.getParent1().isActiviteLucrative();
-    String p1Residence=parent.getParent1().getResidence();
-    Boolean p2AL=parent.getParent2().isActiviteLucrative();
-    String p2Residence=parent.getParent2().getResidence();
-    Boolean pEnsemble=parent.isParentsEnsemble();
-    BigDecimal salaireP1=parent.getParent1().getSalaire();
-    BigDecimal salaireP2=parent.getParent2().getSalaire();
-
-
-    System.out.println("Déterminer le droit aux allocations");
-
-    if(eR.equals(p1Residence) || eR.equals(p2Residence)) {
-      return PARENT_1;
+    public List<Allocation> findAllocationsActuelles() {
+        return allocationMapper.findAll();
     }
 
 
-    if(salaireP1.doubleValue() > salaireP2.doubleValue()) {
-      return PARENT_1;
+    public Parent getParentDroitAllocation(ParentDroitAllocation droit) {
+
+        Parent aDroit = null;
+
+        // 1Parent a une activité lucrative
+        if (droit.getParent1().hasActiviteLucrative() ^ droit.getParent2().hasActiviteLucrative()) {
+            if (droit.getParent1().hasActiviteLucrative()) {
+                aDroit = droit.getParent1();
+            }
+            if (droit.getParent2().hasActiviteLucrative()) {
+                aDroit = droit.getParent2();
+            }
+        } else if (droit.getParent1().hasAutoriteParentale() ^ droit.getParent2().hasAutoriteParentale()) {
+            // 1 Parent a l'autorité parentale
+            if (droit.getParent1().hasAutoriteParentale()) {
+                aDroit = droit.getParent1();
+            }
+            if (droit.getParent2().hasAutoriteParentale()) {
+                aDroit = droit.getParent2();
+            }
+        } else if (!droit.isParentsEnsemble()) {
+            // Parents pas ensemble
+            if (droit.getParent1().getResidence().equals(droit.getEnfantResidance())) {
+                aDroit = droit.getParent1();
+            }
+            if (droit.getParent2().getResidence().equals(droit.getEnfantResidance())) {
+                aDroit = droit.getParent2();
+            }
+        }
+        //Parent ensemble
+        //Parent canton
+        if (droit.isParentsEnsemble()) {
+            if (droit.getParent1().getCantonTravail().equals(droit.getEnfantCanton()) ^ droit.getParent2().getCantonTravail().equals(droit.getEnfantCanton())) {
+                if (droit.getParent1().getCantonTravail().equals(droit.getEnfantCanton())) {
+                    aDroit = droit.getParent1();
+                }
+                if (droit.getParent2().getCantonTravail().equals(droit.getEnfantCanton())) {
+                    aDroit = droit.getParent2();
+                }
+                // 1 salarié ou 2 salariés
+            } else if ((droit.getParent1().isIndependant() ^ droit.getParent2().isIndependant()) || (!droit.getParent1().isIndependant() && !droit.getParent2().isIndependant())) {
+                if (droit.getParent1().isIndependant() && !droit.getParent2().isIndependant()) {
+                    aDroit = droit.getParent2();
+                } else if (!droit.getParent1().isIndependant() && droit.getParent2().isIndependant()) {
+                    aDroit = droit.getParent1();
+                } else if (!droit.getParent1().isIndependant() && !droit.getParent2().isIndependant()) {
+                    int resultOfComparison = droit.getParent1().getSalaire().compareTo(droit.getParent2().getSalaire());
+                    if (resultOfComparison == -1) {
+                        aDroit = droit.getParent2();
+                    } else if (resultOfComparison == 0) {
+                        aDroit = droit.getParent1();
+                        // Choix de conception voir Arnaud
+                    } else {
+                        aDroit = droit.getParent1();
+                    }
+                }
+            } else if (droit.getParent1().isIndependant() && droit.getParent2().isIndependant()) {
+                int resultOfComparison = droit.getParent1().getSalaire().compareTo(droit.getParent2().getSalaire());
+                if (resultOfComparison == -1) {
+                    aDroit = droit.getParent2();
+                } else if (resultOfComparison == 0) {
+                    aDroit = droit.getParent1();
+                    // Choix de conception voir Arnaud
+                } else {
+                    aDroit = droit.getParent1();
+                }
+            }
+        }
+        return aDroit;
     }
-
-    if(salaireP1.doubleValue() < salaireP2.doubleValue()) {
-      return PARENT_2;
-    }
-
-    if(eR.equals(p1Residence) && eR.equals(p2Residence)) {
-      return PARENT_1;
-    }
-
-    if(eR.equals(p1Residence)) {
-      return PARENT_1;
-    }
-
-    if(eR.equals(p2Residence)) {
-      return PARENT_1;
-    }
-
-    return PARENT_2;
-  }
-
 }
+
+

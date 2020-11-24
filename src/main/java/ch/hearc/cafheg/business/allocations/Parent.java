@@ -5,12 +5,27 @@ import java.math.BigDecimal;
 public class Parent {
     private boolean activiteLucrative;
     private String residence;
+    private boolean isIndependant;
+    private Canton cantonTravail;
     private BigDecimal salaire;
+    private boolean autoriteParentale;
 
-    public Parent(boolean activiteLucrative, String residence, BigDecimal salaire) {
+    public Parent(boolean activiteLucrative, boolean isIndependant, boolean autoriteParentale, String residence, Canton cantonTravail, BigDecimal salaire) {
         this.activiteLucrative = activiteLucrative;
+        this.isIndependant = isIndependant;
+        this.autoriteParentale = autoriteParentale;
         this.residence = residence;
+        this.cantonTravail = cantonTravail;
         this.salaire = salaire;
+
+    }
+
+    public boolean isIndependant() {
+        return isIndependant;
+    }
+
+    public void setIndependant(boolean independant) {
+        isIndependant = independant;
     }
 
     public boolean isActiviteLucrative() {
@@ -19,6 +34,32 @@ public class Parent {
 
     public void setActiviteLucrative(boolean activiteLucrative) {
         this.activiteLucrative = activiteLucrative;
+    }
+
+    public Canton getCantonTravail() {
+        return cantonTravail;
+    }
+
+    public void setCantonTravail(Canton cantonTravail) {
+        this.cantonTravail = cantonTravail;
+    }
+
+    public boolean isAutoriteParentale() {
+        return autoriteParentale;
+    }
+
+    public void setAutoriteParentale(boolean autoriteParentale) {
+        this.autoriteParentale = autoriteParentale;
+    }
+
+    public boolean hasActiviteLucrative() {
+        return activiteLucrative;
+    }
+
+    ;
+
+    public boolean hasAutoriteParentale() {
+        return autoriteParentale;
     }
 
     public String getResidence() {

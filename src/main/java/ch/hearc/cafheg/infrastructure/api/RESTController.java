@@ -2,9 +2,7 @@ package ch.hearc.cafheg.infrastructure.api;
 
 import static ch.hearc.cafheg.infrastructure.persistance.Database.inTransaction;
 
-import ch.hearc.cafheg.business.allocations.Allocataire;
-import ch.hearc.cafheg.business.allocations.Allocation;
-import ch.hearc.cafheg.business.allocations.AllocationService;
+import ch.hearc.cafheg.business.allocations.*;
 import ch.hearc.cafheg.business.versements.VersementService;
 import ch.hearc.cafheg.infrastructure.pdf.PDFExporter;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
@@ -29,21 +27,42 @@ public class RESTController {
         new PDFExporter(new EnfantMapper()));
   }
 
-  /*
-  {
-      "enfantResidance" : "Neuchâtel",
-      "parent1Residence" : "Neuchâtel",
-      "parent2Residence" : "Bienne",
-      "parent1ActiviteLucrative" : true,
-      "parent2ActiviteLucrative" : true,
-      "parent1Salaire" : 2500,
-      "parent2Salaire" : 3000
-  }
-   */
+
+/**
   @PostMapping("/droits/quel-parent")
   public String getParentDroitAllocation(@RequestBody Map<String, Object> params) {
     return inTransaction(() -> allocationService.getParentDroitAllocation(params));
   }
+ **/
+
+//{
+//  "enfantResidance": "",
+//        "enfantCanton": "",
+//        "parentsEnsemble": ,
+
+//        "parent1": {
+//  "activiteLucrative": ,
+//          "residence": "",
+//          "cantonTravail": "",
+//          "salaire": ,
+//          "autoriteParentale": ,
+//          "independant":
+//},
+//  "parent2": {
+//  "activiteLucrative": ,
+//          "residence": "",
+//          "cantonTravail": "",
+//          "salaire": ,
+//          "autoriteParentale": ,
+//          "independant":
+//}
+//}
+
+  @PostMapping("/droits/quel-parent")
+  public Parent getParentDroitAllocation(@RequestBody ParentDroitAllocation parent) {
+    return inTransaction(() -> allocationService.getParentDroitAllocation(parent));
+  }
+
 
   @GetMapping("/allocataires")
   public List<Allocataire> allocataires(

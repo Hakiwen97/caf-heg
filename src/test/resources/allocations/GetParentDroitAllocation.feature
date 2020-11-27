@@ -32,7 +32,7 @@ Background:
      When i ask who has the right
      Then the parent who lives with the child get the right
 #D
-  Scenario: two parents with a lucrative activity,they are together and one work in the same canton than the child's residence
+  Scenario: two parents with a lucrative activity,they both have the parental authority,they are together and one works in the same canton than the child's residence
     Given two parents
     And two parents have a lucrative activity
     And  they both have the parental authority
@@ -40,6 +40,27 @@ Background:
     And one parent work in the same canton than the child's residence
     When i ask who has the right
     Then the parent who works in the same canton than the child's residence get the right
+
+#E
+  Scenario: two parents with a lucrative activity,they both have the parental authority, they are together
+    Given two parents
+    And two parents have a lucrative activity
+    And  they both have the parental authority
+    And  they are together
+    When i ask who has the right
+    Then the parent with the highest salary get the right
+    #par sur
+#F
+  Scenario: two parents with a lucrative activity,they both have the parental authority, they are together and they are both freelance
+    Given two parents
+    And two parents have a lucrative activity
+    And  they both have the parental authority
+    And  they are together
+    And they are freelance
+    When i ask who has the right
+    Then the parent with the highest salary get the right
+
+
 
 
 

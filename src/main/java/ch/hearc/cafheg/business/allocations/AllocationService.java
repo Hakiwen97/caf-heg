@@ -1,8 +1,11 @@
 package ch.hearc.cafheg.business.allocations;
 
 
+import ch.hearc.cafheg.business.versements.VersementAllocation;
+import ch.hearc.cafheg.business.versements.VersementParentEnfant;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
+import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 
 import java.util.List;
 
@@ -14,9 +17,8 @@ public class AllocationService {
     private final AllocataireMapper allocataireMapper;
     private final AllocationMapper allocationMapper;
 
-    public AllocationService(
-            AllocataireMapper allocataireMapper,
-            AllocationMapper allocationMapper) {
+
+    public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper) {
         this.allocataireMapper = allocataireMapper;
         this.allocationMapper = allocationMapper;
     }
@@ -100,6 +102,28 @@ public class AllocationService {
         }
         return aDroit;
     }
+    /**
+    public boolean deleteAllocataire(long id) {
+        VersementMapper versementMapper=new VersementMapper();
+        Allocataire aloc=allocataireMapper.findById(id);
+       List <VersementParentEnfant >versements=versementMapper.findVersementParentEnfant();
+        for(VersementParentEnfant ver:versements){
+            long parentId=aloc.getNoAVS();
+            long enfantId=ver.getEnfantId();
+            if(parentId==enfantId){
+                return false;
+            }else{
+                allocataireMapper.deleteAllocataire(id);
+                return true;
+            }
+
+        }
+        return true;
+
+
+    }
+     **/
+
 }
 
 

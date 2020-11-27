@@ -317,15 +317,14 @@ class AllocationServiceTest {
                 () -> assertThat(all.get(1).getDebut()).isEqualTo(LocalDate.now()),
                 () -> assertThat(all.get(1).getFin()).isNull());
     }
+    /**
     @Test
     void deleteAllocataire_GivenNumero1_ShouldBeTrue(){
         boolean rep=allocataireMapper.deleteAllocataire(1);
         assertThat(rep=true);
 
-
-
-
-    }
+}
+    **/
 
 
 }

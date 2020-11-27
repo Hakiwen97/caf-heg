@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 
@@ -315,6 +316,15 @@ class AllocationServiceTest {
                 () -> assertThat(all.get(1).getCanton()).isEqualTo(Canton.FR),
                 () -> assertThat(all.get(1).getDebut()).isEqualTo(LocalDate.now()),
                 () -> assertThat(all.get(1).getFin()).isNull());
+    }
+    @Test
+    void deleteAllocataire_GivenNumero1_ShouldBeTrue(){
+        boolean rep=allocataireMapper.deleteAllocataire(1);
+        assertThat(rep=true);
+
+
+
+
     }
 
 

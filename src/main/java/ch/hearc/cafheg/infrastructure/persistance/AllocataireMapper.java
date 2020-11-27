@@ -52,4 +52,20 @@ public class AllocataireMapper extends Mapper {
       throw new RuntimeException(e);
     }
   }
+
+  public boolean deleteAllocataire(long id) {
+    Connection connection = getConnection();
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(
+              "DELETE NO_AVS, NOM, PRENOM FROM ALLOCATAIRES WHERE NUMERO=?");
+      preparedStatement.setLong(1, id);
+      ResultSet resultSet = preparedStatement.executeQuery();
+      return true;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
+  }
+
+
 }

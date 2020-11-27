@@ -102,27 +102,26 @@ public class AllocationService {
         }
         return aDroit;
     }
-    /**
+
     public boolean deleteAllocataire(long id) {
-        VersementMapper versementMapper=new VersementMapper();
-        Allocataire aloc=allocataireMapper.findById(id);
-       List <VersementParentEnfant >versements=versementMapper.findVersementParentEnfant();
-        for(VersementParentEnfant ver:versements){
-            long parentId=aloc.getNoAVS();
-            long enfantId=ver.getEnfantId();
-            if(parentId==enfantId){
-                return false;
+      VersementMapper ver=new VersementMapper();
+        List<VersementParentEnfant>versements=ver.findVersementParentEnfant();
+
+        for (VersementParentEnfant verEnfant:versements){
+            if(verEnfant.getParentId()==id){
+
             }else{
+
                 allocataireMapper.deleteAllocataire(id);
                 return true;
             }
 
         }
-        return true;
+        return false;
 
 
     }
-     **/
+
 
 }
 

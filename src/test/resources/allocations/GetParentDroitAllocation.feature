@@ -11,7 +11,6 @@ Background:
   Scenario: A parent has a lucrative activity and the other has not
     Given two parents
     And a parent has a lucrative activity
-    And the other has not
     When i ask who has the right
     Then the parent with a lucrative get the right
 

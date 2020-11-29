@@ -1,8 +1,12 @@
 package ch.hearc.cafheg.business.allocations;
 
 import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
     @RunWith(Cucumber.class)
-    public class RunCucumberTest { }
+    @CucumberOptions(
+            features ="src/test/resources/allocations/GetParentDroitAllocation.feature"
+    )
+            public class RunCucumberTest { }
 

@@ -24,7 +24,7 @@ public class GetParentDroitAllocationStepDefinitions {
     private Parent parentAvecDroit;
 
 
-   
+
     //A
     @Given("two parents")
     public void twoParents() {
@@ -74,6 +74,8 @@ public class GetParentDroitAllocationStepDefinitions {
 
     @And("they both have the parental authority")
     public void theyBothHaveTheParentalAuthority() {
+        parent1.setAutoriteParentale(true);
+        parent2.setAutoriteParentale(true);
     }
 
     @And("they are separated")

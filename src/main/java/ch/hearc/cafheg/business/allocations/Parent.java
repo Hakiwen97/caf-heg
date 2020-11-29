@@ -3,78 +3,77 @@ package ch.hearc.cafheg.business.allocations;
 import java.math.BigDecimal;
 
 public class Parent {
-    private boolean activiteLucrative;
-    private String residence;
-    private boolean isIndependant;
-    private Canton cantonTravail;
-    private BigDecimal salaire;
-    private boolean autoriteParentale;
+    private boolean lucrativeActivity;
+    private String parentAddress;
+    private boolean isFreelancer;
+    private Canton workingCanton;
+    private BigDecimal salary;
+    private boolean parentalAuthority;
 
-    public Parent(boolean activiteLucrative, boolean isIndependant, boolean autoriteParentale, String residence, Canton cantonTravail, BigDecimal salaire) {
-        this.activiteLucrative = activiteLucrative;
-        this.isIndependant = isIndependant;
-        this.autoriteParentale = autoriteParentale;
-        this.residence = residence;
-        this.cantonTravail = cantonTravail;
-        this.salaire = salaire;
+    public Parent(boolean lucrativeActivity, boolean isFreelancer, boolean parentalAuthority, String parentAddress, Canton workingCanton, BigDecimal salary) {
+        this.lucrativeActivity = lucrativeActivity;
+        this.isFreelancer = isFreelancer;
+        this.parentalAuthority = parentalAuthority;
+        this.parentAddress = parentAddress;
+        this.workingCanton = workingCanton;
+        this.salary = salary;
 
     }
 
-    public boolean isIndependant() {
-        return isIndependant;
+    public boolean isFreelancer() {
+        return isFreelancer;
     }
 
-    public void setIndependant(boolean independant) {
-        isIndependant = independant;
+    public void setFreelancer(boolean freelancer) {
+        isFreelancer = freelancer;
     }
 
-    public boolean isActiviteLucrative() {
-        return activiteLucrative;
+    public boolean isLucrativeActivity() {
+        return lucrativeActivity;
     }
 
-    public void setActiviteLucrative(boolean activiteLucrative) {
-        this.activiteLucrative = activiteLucrative;
+    public void setLucrativeActivity(boolean lucrativeActivity) {
+        this.lucrativeActivity = lucrativeActivity;
     }
 
-    public Canton getCantonTravail() {
-        return cantonTravail;
+    public Canton getWorkingCanton() {
+        return workingCanton;
     }
 
-    public void setCantonTravail(Canton cantonTravail) {
-        this.cantonTravail = cantonTravail;
+    public void setWorkingCanton(Canton workingCanton) {
+        this.workingCanton = workingCanton;
     }
 
-    public boolean isAutoriteParentale() {
-        return autoriteParentale;
+    public boolean isParentalAuthority() {
+        return parentalAuthority;
     }
 
-    public void setAutoriteParentale(boolean autoriteParentale) {
-        this.autoriteParentale = autoriteParentale;
+    public void setParentalAuthority(boolean parentalAuthority) {
+        this.parentalAuthority = parentalAuthority;
     }
 
-    public boolean hasActiviteLucrative() {
-        return activiteLucrative;
+    public boolean hasLucrativeActivity() {
+        return lucrativeActivity;
     }
 
-    ;
 
     public boolean hasAutoriteParentale() {
-        return autoriteParentale;
+        return parentalAuthority;
     }
 
-    public String getResidence() {
-        return residence;
+    public String getParentAddress() {
+        return parentAddress;
     }
 
-    public void setResidence(String residence) {
-        this.residence = residence;
+    public void setParentAddress(String parentAddress) {
+        this.parentAddress = parentAddress;
     }
 
-    public BigDecimal getSalaire() {
-        return salaire;
+    public BigDecimal getSalary() {
+        return salary;
     }
 
-    public void setSalaire(BigDecimal salaire) {
-        this.salaire = salaire;
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
     }
 }

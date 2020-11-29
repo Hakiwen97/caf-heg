@@ -1,7 +1,6 @@
 package ch.hearc.cafheg.business.allocations;
 
 
-import ch.hearc.cafheg.business.versements.VersementAllocation;
 import ch.hearc.cafheg.business.versements.VersementParentEnfant;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
@@ -43,11 +42,11 @@ public class AllocationService {
         Parent aDroit = null;
 
         // 1Parent a une activité lucrative
-        if (droit.getParent1().hasActiviteLucrative() ^ droit.getParent2().hasActiviteLucrative()) {
-            if (droit.getParent1().hasActiviteLucrative()) {
+        if (droit.getParent1().hasLucrativeActivity() ^ droit.getParent2().hasLucrativeActivity()) {
+            if (droit.getParent1().hasLucrativeActivity()) {
                 aDroit = droit.getParent1();
             }
-            if (droit.getParent2().hasActiviteLucrative()) {
+            if (droit.getParent2().hasLucrativeActivity()) {
                 aDroit = droit.getParent2();
             }
         } else if (droit.getParent1().hasAutoriteParentale() ^ droit.getParent2().hasAutoriteParentale()) {
@@ -58,33 +57,33 @@ public class AllocationService {
             if (droit.getParent2().hasAutoriteParentale()) {
                 aDroit = droit.getParent2();
             }
-        } else if (!droit.isParentsEnsemble()) {
+        } else if (!droit.isParentsTogether()) {
             // Parents pas ensemble
-            if (droit.getParent1().getResidence().equals(droit.getEnfantResidance())) {
+            if (droit.getParent1().getParentAddress().equals(droit.getChildAddress())) {
                 aDroit = droit.getParent1();
             }
-            if (droit.getParent2().getResidence().equals(droit.getEnfantResidance())) {
+            if (droit.getParent2().getParentAddress().equals(droit.getChildAddress())) {
                 aDroit = droit.getParent2();
             }
         }
         //Parent ensemble
         //Parent canton
-        if (droit.isParentsEnsemble()) {
-            if (droit.getParent1().getCantonTravail().equals(droit.getEnfantCanton()) ^ droit.getParent2().getCantonTravail().equals(droit.getEnfantCanton())) {
-                if (droit.getParent1().getCantonTravail().equals(droit.getEnfantCanton())) {
+        if (droit.isParentsTogether()) {
+            if (droit.getParent1().getWorkingCanton().equals(droit.getChildCanton()) ^ droit.getParent2().getWorkingCanton().equals(droit.getChildCanton())) {
+                if (droit.getParent1().getWorkingCanton().equals(droit.getChildCanton())) {
                     aDroit = droit.getParent1();
                 }
-                if (droit.getParent2().getCantonTravail().equals(droit.getEnfantCanton())) {
+                if (droit.getParent2().getWorkingCanton().equals(droit.getChildCanton())) {
                     aDroit = droit.getParent2();
                 }
                 // 1 salarié ou 2 salariés
-            } else if ((droit.getParent1().isIndependant() ^ droit.getParent2().isIndependant()) || (!droit.getParent1().isIndependant() && !droit.getParent2().isIndependant())) {
-                if (droit.getParent1().isIndependant() && !droit.getParent2().isIndependant()) {
+            } else if ((droit.getParent1().isFreelancer() ^ droit.getParent2().isFreelancer()) || (!droit.getParent1().isFreelancer() && !droit.getParent2().isFreelancer())) {
+                if (droit.getParent1().isFreelancer() && !droit.getParent2().isFreelancer()) {
                     aDroit = droit.getParent2();
-                } else if (!droit.getParent1().isIndependant() && droit.getParent2().isIndependant()) {
+                } else if (!droit.getParent1().isFreelancer() && droit.getParent2().isFreelancer()) {
                     aDroit = droit.getParent1();
-                } else if (!droit.getParent1().isIndependant() && !droit.getParent2().isIndependant()) {
-                    int resultOfComparison = droit.getParent1().getSalaire().compareTo(droit.getParent2().getSalaire());
+                } else if (!droit.getParent1().isFreelancer() && !droit.getParent2().isFreelancer()) {
+                    int resultOfComparison = droit.getParent1().getSalary().compareTo(droit.getParent2().getSalary());
                     if (resultOfComparison == -1) {
                         aDroit = droit.getParent2();
                     } else if (resultOfComparison == 0) {
@@ -94,8 +93,8 @@ public class AllocationService {
                         aDroit = droit.getParent1();
                     }
                 }
-            } else if (droit.getParent1().isIndependant() && droit.getParent2().isIndependant()) {
-                int resultOfComparison = droit.getParent1().getSalaire().compareTo(droit.getParent2().getSalaire());
+            } else if (droit.getParent1().isFreelancer() && droit.getParent2().isFreelancer()) {
+                int resultOfComparison = droit.getParent1().getSalary().compareTo(droit.getParent2().getSalary());
                 if (resultOfComparison == -1) {
                     aDroit = droit.getParent2();
                 } else if (resultOfComparison == 0) {

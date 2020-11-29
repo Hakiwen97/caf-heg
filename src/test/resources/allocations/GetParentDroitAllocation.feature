@@ -12,7 +12,7 @@ Background:
     Given two parents
     And a parent has a lucrative activity
     When i ask who has the right
-    Then the parent with a lucrative get the right
+    Then the parent with a lucrative activity gets the right
 
 #B
   Scenario: Two parents have a lucrative activity but one has the parental authority

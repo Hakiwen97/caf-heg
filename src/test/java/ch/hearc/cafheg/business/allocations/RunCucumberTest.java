@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
     @RunWith(Cucumber.class)
     @CucumberOptions(
-            features ="src/test/resources/allocations/GetParentDroitAllocation.feature"
+            features ="src/test/resources/allocations/GetParentDroitAllocation.feature", glue = {"GetParentDroitAllocationStepDef"}
     )
             public class RunCucumberTest { }
 

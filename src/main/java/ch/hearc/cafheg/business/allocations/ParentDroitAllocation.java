@@ -1,45 +1,42 @@
 package ch.hearc.cafheg.business.allocations;
 
-import java.math.BigDecimal;
-
 public class ParentDroitAllocation {
-    private String enfantResidance;
-
-    public Canton getEnfantCanton() {
-        return enfantCanton;
-    }
-
-    public void setEnfantCanton(Canton enfantCanton) {
-        this.enfantCanton = enfantCanton;
-    }
-
-    private Canton enfantCanton;
-    private boolean parentsEnsemble;
+    private String childAddress;
+    private Canton childCanton;
+    private boolean parentsTogether;
     private Parent parent1;
     private Parent parent2;
 
-    public ParentDroitAllocation(String enfantResidance,Canton enfantCanton, boolean parentsEnsemble, Parent parent1, Parent parent2) {
-        this.enfantResidance = enfantResidance;
-        this.enfantCanton = enfantCanton;
-        this.parentsEnsemble = parentsEnsemble;
+    public ParentDroitAllocation(String childAddress, Canton childCanton, boolean parentsTogether, Parent parent1, Parent parent2) {
+        this.childAddress = childAddress;
+        this.childCanton = childCanton;
+        this.parentsTogether = parentsTogether;
         this.parent1 = parent1;
         this.parent2 = parent2;
     }
 
-    public String getEnfantResidance() {
-        return enfantResidance;
+    public Canton getChildCanton() {
+        return childCanton;
     }
 
-    public void setEnfantResidance(String enfantResidance) {
-        this.enfantResidance = enfantResidance;
+    public void setChildCanton(Canton childCanton) {
+        this.childCanton = childCanton;
     }
 
-    public boolean isParentsEnsemble() {
-        return parentsEnsemble;
+    public String getChildAddress() {
+        return childAddress;
     }
 
-    public void setParentsEnsemble(boolean parentsEnsemble) {
-        this.parentsEnsemble = parentsEnsemble;
+    public void setChildAddress(String childAddress) {
+        this.childAddress = childAddress;
+    }
+
+    public boolean isParentsTogether() {
+        return parentsTogether;
+    }
+
+    public void setParentsTogether(boolean parentsTogether) {
+        this.parentsTogether = parentsTogether;
     }
 
     public Parent getParent1() {

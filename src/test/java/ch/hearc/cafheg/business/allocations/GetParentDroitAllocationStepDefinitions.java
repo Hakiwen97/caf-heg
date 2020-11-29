@@ -24,24 +24,17 @@ public class GetParentDroitAllocationStepDefinitions {
     private Parent parentAvecDroit;
 
 
-
-
-    /**
-    @io.cucumber.java.en.And("^the other has not$")
-    public void theOtherHasNot() {
-
-    }
-     **/
-
+   
+    //A
     @Given("two parents")
     public void twoParents() {
-        parent1 = new Parent(true, true, true, "Neuchâtel",Canton.NE, new BigDecimal(2500));
+        parent1 = new Parent(true, true, true, "Neuchâtel", Canton.NE, new BigDecimal(2500));
         parent2 = new Parent(true, false, true, "Bienne", Canton.BE, new BigDecimal(5000));
     }
 
     @And("a parent has a lucrative activity")
     public void aParentHasALucrativeActivity() {
-       parent2.setActiviteLucrative(false);
+        parent2.setActiviteLucrative(false);
     }
 
     @When("i ask who has the right")
@@ -49,7 +42,9 @@ public class GetParentDroitAllocationStepDefinitions {
         allocataireMapper = Mockito.mock(AllocataireMapper.class);
         allocationMapper = Mockito.mock(AllocationMapper.class);
         allocationService = new AllocationService(allocataireMapper, allocationMapper);
-        parentAvecDroit=allocationService.getParentDroitAllocation(parents);
+        parents = new ParentDroitAllocation("Neuchâtel", Canton.NE, false, parent1, parent2);
+        parentAvecDroit = allocationService.getParentDroitAllocation(parents);
+
 
     }
 
@@ -57,18 +52,24 @@ public class GetParentDroitAllocationStepDefinitions {
     public void theParentWithALucrativeGetTheRight() {
         assertThat(parentAvecDroit).isEqualTo(parent1);
     }
-    /**
 
+//B
     @And("two parents have a lucrative activity")
     public void twoParentsHaveALucrativeActivity() {
+        parent1.setActiviteLucrative(true);
+        parent2.setActiviteLucrative(true);
     }
 
     @And("one has the parental authority")
     public void oneHasTheParentalAuthority() {
+        parent1.setAutoriteParentale(true);
+        parent2.setAutoriteParentale(false);
+
     }
 
     @Then("the parent with the parental authority gets the right")
     public void theParentWithTheParentalAuthorityGetsTheRight() {
+        assertThat(parentAvecDroit).isEqualTo(parent1);
     }
 
     @And("they both have the parental authority")
@@ -78,5 +79,34 @@ public class GetParentDroitAllocationStepDefinitions {
     @And("they are separated")
     public void theyAreSeparated() {
     }
-    **/
+
+    @And("one live with the child")
+    public void oneLiveWithTheChild() {
+    }
+
+    @Then("the parent who lives with the child get the right")
+    public void theParentWhoLivesWithTheChildGetTheRight() {
+    }
+
+    @And("they are together")
+    public void theyAreTogether() {
+    }
+
+    @And("one parent work in the same canton than the child's residence")
+    public void oneParentWorkInTheSameCantonThanTheChildSResidence() {
+    }
+
+    @Then("the parent who works in the same canton than the child's residence get the right")
+    public void theParentWhoWorksInTheSameCantonThanTheChildSResidenceGetTheRight() {
+    }
+
+    @Then("the parent with the highest salary get the right")
+    public void theParentWithTheHighestSalaryGetTheRight() {
+    }
+
+    @And("they are freelance")
+    public void theyAreFreelance() {
+    }
 }
+
+

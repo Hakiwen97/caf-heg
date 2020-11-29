@@ -7,6 +7,7 @@ import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 
+
 import java.util.List;
 
 public class AllocationService {
@@ -18,10 +19,15 @@ public class AllocationService {
     private final AllocationMapper allocationMapper;
 
 
+
+
+
     public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper) {
         this.allocataireMapper = allocataireMapper;
         this.allocationMapper = allocationMapper;
     }
+
+
 
     public List<Allocataire> findAllAllocataires(String likeNom) {
         return allocataireMapper.findAll(likeNom);
@@ -104,25 +110,29 @@ public class AllocationService {
     }
 
     public boolean deleteAllocataire(long id) {
-      VersementMapper ver=new VersementMapper();
-        List<VersementParentEnfant>versements=ver.findVersementParentEnfant();
-
-        for (VersementParentEnfant verEnfant:versements){
-            if(verEnfant.getParentId()==id){
-
-            }else{
-
-                allocataireMapper.deleteAllocataire(id);
-                return true;
+        boolean reponse = true;
+        int i = 0;
+        VersementMapper versementMapper = new VersementMapper();
+        //cherche tous les versements
+        List<VersementParentEnfant> versements = versementMapper.findVersementParentEnfant();
+        while (i <= versements.size() || reponse == false) {
+            for (VersementParentEnfant verEnfant : versements) {
+                if (verEnfant.getParentId() == id) {
+                    reponse = false;
+                } else {
+                    i++;
+                }
             }
 
         }
-        return false;
-
-
+        if(reponse==true){
+           allocataireMapper.deleteAllocataire(id);
+        }else{
+            System.out.println("pas possible de supprimer ");
+        }
+        return reponse;
     }
-
-
 }
+
 
 

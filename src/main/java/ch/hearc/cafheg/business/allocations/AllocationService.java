@@ -8,6 +8,7 @@ import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class AllocationService {
 
@@ -110,28 +111,24 @@ public class AllocationService {
         return aDroit;
     }
 
-    public boolean deleteAllocataire(long id) {
-        boolean reponse = true;
-        int i = 0;
-        //cherche tous les versements
-        List<VersementParentEnfant> versements = versementMapper.findVersementParentEnfant();
-        while (i <= versements.size() || reponse == false) {
-            for (VersementParentEnfant verEnfant : versements) {
-                if (verEnfant.getParentId() == id) {
-                    reponse = false;
-                } else {
-                    i++;
-                }
-            }
+public boolean deleteAllocataire(long id) {
+    boolean reponse;
+    List<VersementParentEnfant> versements = versementMapper.findVersementParentEnfant();
+    Stream<VersementParentEnfant> stream=versements.stream();
+    reponse=stream.anyMatch(vers -> vers.getParentId()==id);
 
-        }
-        if(reponse==true){
-           allocataireMapper.deleteAllocataire(id);
-        }else{
-            System.out.println("pas possible de supprimer ");
-        }
-        return reponse;
+    if(reponse==true){
+        System.out.println("pas possible de supprimer");
+        return false;
+    }else{
+        allocataireMapper.deleteAllocataire(id);
+        return true;
+
     }
+
+
+}
+
 }
 
 

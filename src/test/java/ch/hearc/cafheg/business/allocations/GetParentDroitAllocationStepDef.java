@@ -34,7 +34,7 @@ public class GetParentDroitAllocationStepDef {
     public void setUp() {
         allocataireMapper = Mockito.mock(AllocataireMapper.class);
         allocationMapper = Mockito.mock(AllocationMapper.class);
-        allocationService = new AllocationService(allocataireMapper, allocationMapper);
+        allocationService = new AllocationService(allocataireMapper, allocationMapper,null);
     }
 
 

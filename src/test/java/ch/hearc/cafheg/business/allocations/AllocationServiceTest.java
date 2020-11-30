@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,6 +24,7 @@ class AllocationServiceTest {
     private AllocationService allocationService;
     private AllocataireMapper allocataireMapper;
     private AllocationMapper allocationMapper;
+    private VersementMapper versementMapper;
     private ParentDroitAllocation parents;
     private Parent parent1;
     private Parent parent2;
@@ -32,8 +34,9 @@ class AllocationServiceTest {
     void setUp() {
         allocataireMapper = Mockito.mock(AllocataireMapper.class);
         allocationMapper = Mockito.mock(AllocationMapper.class);
+        versementMapper =Mockito.mock(VersementMapper.class);
 
-        allocationService = new AllocationService(allocataireMapper, allocationMapper);
+        allocationService = new AllocationService(allocataireMapper, allocationMapper,versementMapper);
 
 
         parent1 = new Parent(true, true, true, "Neuchâtel", Canton.NE, new BigDecimal(2500));
@@ -315,14 +318,14 @@ class AllocationServiceTest {
                 () -> assertThat(all.get(1).getDebut()).isEqualTo(LocalDate.now()),
                 () -> assertThat(all.get(1).getFin()).isNull());
     }
-/**
+
     @Test
     void deleteAllocataire_GivenNumero1_ShouldBeFalse(){
         boolean rep=allocationService.deleteAllocataire(1);
         assertThat(rep=false);
 
 }
-    **/
+
 
 
 

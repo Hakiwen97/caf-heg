@@ -22,7 +22,7 @@ public class RESTController {
   private final VersementService versementService;
 
   public RESTController() {
-    this.allocationService = new AllocationService(new AllocataireMapper(), new AllocationMapper());
+    this.allocationService = new AllocationService(new AllocataireMapper(), new AllocationMapper(),new VersementMapper());
     this.versementService = new VersementService(new VersementMapper(), new AllocataireMapper(),
         new PDFExporter(new EnfantMapper()));
   }

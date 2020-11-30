@@ -16,14 +16,16 @@ public class AllocationService {
 
     private final AllocataireMapper allocataireMapper;
     private final AllocationMapper allocationMapper;
+    private final VersementMapper versementMapper;
 
 
 
 
 
-    public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper) {
+    public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper,VersementMapper versementMapper) {
         this.allocataireMapper = allocataireMapper;
         this.allocationMapper = allocationMapper;
+        this.versementMapper=versementMapper;
     }
 
 
@@ -111,7 +113,6 @@ public class AllocationService {
     public boolean deleteAllocataire(long id) {
         boolean reponse = true;
         int i = 0;
-        VersementMapper versementMapper = new VersementMapper();
         //cherche tous les versements
         List<VersementParentEnfant> versements = versementMapper.findVersementParentEnfant();
         while (i <= versements.size() || reponse == false) {

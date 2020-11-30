@@ -2,10 +2,6 @@ Feature: Who get the family allowance
 
   As a parent i want to know if a can receive the family allowance
 
-Background:
-  Given two parents
-#faut ajouter un background ?
-
 
 #A
   Scenario: A parent has a lucrative activity and the other has not
@@ -46,6 +42,7 @@ Background:
     And two parents have a lucrative activity
     And  they both have the parental authority
     And  they are together
+    And  none parents work in the child's residence
     When i ask who has the right
     Then the parent with the highest salary get the right
     #par sur
@@ -56,6 +53,7 @@ Background:
     And  they both have the parental authority
     And  they are together
     And they are freelance
+    And none parents work in the child's residence
     When i ask who has the right
     Then the parent with the highest salary get the right
 

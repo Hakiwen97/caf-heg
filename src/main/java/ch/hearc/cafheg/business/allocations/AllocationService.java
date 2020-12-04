@@ -20,15 +20,11 @@ public class AllocationService {
     private final VersementMapper versementMapper;
 
 
-
-
-
-    public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper,VersementMapper versementMapper) {
+    public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper, VersementMapper versementMapper) {
         this.allocataireMapper = allocataireMapper;
         this.allocationMapper = allocationMapper;
-        this.versementMapper=versementMapper;
+        this.versementMapper = versementMapper;
     }
-
 
 
     public List<Allocataire> findAllAllocataires(String likeNom) {
@@ -111,25 +107,37 @@ public class AllocationService {
         return aDroit;
     }
 
-public boolean deleteAllocataire(long id) {
-    boolean reponse=false;
-    List<VersementParentEnfant> versements = versementMapper.findVersementParentEnfant();
-    Stream<VersementParentEnfant> stream=versements.stream();
-    //reponse=stream.anyMatch(vers -> vers.equals(id));
-    reponse=stream.anyMatch(vers ->vers.getParentId()==id);
+    public boolean deleteAllocataire(long id) {
+        boolean reponse = false;
+        List<VersementParentEnfant> versements = versementMapper.findVersementParentEnfant();
+        Stream<VersementParentEnfant> stream = versements.stream();
+        //reponse=stream.anyMatch(vers -> vers.equals(id));
+        reponse = stream.anyMatch(vers -> vers.getParentId() == id);
 
-    if(reponse==true){
-        System.out.println("pas possible de supprimer");
-        return false;
-    }else{
-        allocataireMapper.deleteAllocataire(id);
-        return true;
+        if (reponse == true) {
+            System.out.println("pas possible de supprimer");
+            return false;
+        } else {
+            allocataireMapper.deleteAllocataire(id);
+            return true;
+
+        }
+
 
     }
+/**
+    public boolean updateAllocataire(Allocataire allocataire, String nom, String prenom) {
+        boolean reponse=false;
 
-
-}
-
+        if (!allocataire.getPrenom().equals(prenom) || !allocataire.getNom().equals(nom)) {
+            allocataireMapper.updateAllocataire(allocataire.getNoAVS().getValue(), nom, prenom);
+            reponse=true;
+        }else{
+            reponse=false;
+        }
+        return reponse;
+    }
+ **/
 }
 
 

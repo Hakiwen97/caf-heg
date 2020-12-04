@@ -335,6 +335,28 @@ class AllocationServiceTest {
         boolean rep = allocationService.deleteAllocataire(21);
         assertTrue(rep);
     }
+    /**
+    @Test
+    void updateAllocataire_GivenSameNameAndLastName_ShouldBeFalse(){
+        Allocataire allocataire= new Allocataire(new NoAVS("1000-2001"), "Sigrist", "Adrien");
+       boolean rep= allocationService.updateAllocataire(allocataire,"Sigrist","Adrien");
+       assertFalse(rep);
+    }
+    @Test
+    void updateAllocataire_GivenNotTheSameNameButSameLastName_ShouldBeTrue(){
+        Allocataire allocataire= new Allocataire(new NoAVS("1000-2001"), "Sigrist", "Adrien");
+        boolean rep= allocationService.updateAllocataire(allocataire,"Sigrist","Adrian");
+        assertTrue(rep);
+
+    }
+    @Test
+    void updateAllocataire_GivenNotTheSameNameAndNotSameLastName_ShouldBeFalse(){
+        Allocataire allocataire= new Allocataire(new NoAVS("1000-2001"), "Sigrist", "Adrien");
+        boolean rep= allocationService.updateAllocataire(allocataire,"Siegrist","Adrienne");
+        assertFalse(rep);
+
+    }
+    **/
 
 
 }

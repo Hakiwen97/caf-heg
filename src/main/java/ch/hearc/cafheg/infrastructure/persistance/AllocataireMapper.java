@@ -69,6 +69,22 @@ public class AllocataireMapper extends Mapper {
 
 
     }
+    public void updateAllocataire(String avs,String prenom,String nom){
+        Connection connection = getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "UPDATE ALLOCATAIRE set PRENOM=?,NOM=? WHERE NO_AVS=?");
+
+            preparedStatement.setString(1, prenom);
+            preparedStatement.setString(2, nom);
+            preparedStatement.setString(3,avs);
+            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 }
 
 

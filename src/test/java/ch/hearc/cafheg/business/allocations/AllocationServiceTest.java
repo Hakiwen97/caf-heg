@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import ch.hearc.cafheg.business.common.Montant;
+import ch.hearc.cafheg.business.versements.VersementParentEnfant;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 
@@ -34,9 +35,9 @@ class AllocationServiceTest {
     void setUp() {
         allocataireMapper = Mockito.mock(AllocataireMapper.class);
         allocationMapper = Mockito.mock(AllocationMapper.class);
-        versementMapper =Mockito.mock(VersementMapper.class);
+        versementMapper = Mockito.mock(VersementMapper.class);
 
-        allocationService = new AllocationService(allocataireMapper, allocationMapper,versementMapper);
+        allocationService = new AllocationService(allocataireMapper, allocationMapper, versementMapper);
 
 
         parent1 = new Parent(true, true, true, "Neuchâtel", Canton.NE, new BigDecimal(2500));
@@ -320,13 +321,20 @@ class AllocationServiceTest {
     }
 
     @Test
-    void deleteAllocataire_GivenNumero1_ShouldBeFalse(){
-        boolean rep=allocationService.deleteAllocataire(1);
-        assertThat(rep=false);
+    void deleteAllocataire_GivenId1_ShouldBeFalse() {
+        Mockito.when(versementMapper.findVersementParentEnfant()).thenReturn(Arrays.asList(new VersementParentEnfant(1, 1, new Montant(new BigDecimal(300)))));
+        boolean rep = allocationService.deleteAllocataire(1);
+        assertFalse(rep);
 
-}
 
+    }
 
+    @Test
+    void deleteAllocataire_GivenId21_ShouldBeTrue() {
+        Mockito.when(versementMapper.findVersementParentEnfant()).thenReturn(Arrays.asList(new VersementParentEnfant(1, 1, new Montant(new BigDecimal(300)))));
+        boolean rep = allocationService.deleteAllocataire(21);
+        assertTrue(rep);
+    }
 
 
 }

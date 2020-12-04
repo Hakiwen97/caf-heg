@@ -112,10 +112,11 @@ public class AllocationService {
     }
 
 public boolean deleteAllocataire(long id) {
-    boolean reponse;
+    boolean reponse=false;
     List<VersementParentEnfant> versements = versementMapper.findVersementParentEnfant();
     Stream<VersementParentEnfant> stream=versements.stream();
-    reponse=stream.anyMatch(vers -> vers.getParentId()==id);
+    //reponse=stream.anyMatch(vers -> vers.equals(id));
+    reponse=stream.anyMatch(vers ->vers.getParentId()==id);
 
     if(reponse==true){
         System.out.println("pas possible de supprimer");

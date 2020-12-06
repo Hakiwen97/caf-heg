@@ -125,19 +125,21 @@ public class AllocationService {
 
 
     }
-/**
-    public boolean updateAllocataire(Allocataire allocataire, String nom, String prenom) {
-        boolean reponse=false;
 
-        if (!allocataire.getPrenom().equals(prenom) || !allocataire.getNom().equals(nom)) {
+
+    public boolean updateAllocataire(Allocataire allocataire, String nom, String prenom) {
+        boolean reponse = false;
+        if(allocataire.getPrenom().equals(prenom) && allocataire.getNom().equals(nom)){
+            reponse=false;
+        }else if(!allocataire.getPrenom().equals(prenom)&&!allocataire.getNom().equals(nom)){
+             reponse=false;
+        }else{
             allocataireMapper.updateAllocataire(allocataire.getNoAVS().getValue(), nom, prenom);
             reponse=true;
-        }else{
-            reponse=false;
         }
         return reponse;
     }
- **/
+
 }
 
 

@@ -6,13 +6,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.function.Supplier;
 import javax.sql.DataSource;
-import org.flywaydb.core.Flyway;
 
 public class Database {
+
   private static DataSource dataSource;
   private static ThreadLocal<Connection> connection = new ThreadLocal<>();
 
-  public Database() {}
+  public Database() {
+  }
 
   static Connection getConnection() {
     return connection.get();
@@ -37,17 +38,13 @@ public class Database {
   public DataSource getDataSource() {
     return dataSource;
   }
-/**
-  public void start() {
-    System.out.println("Initializing datasource");
-    HikariConfig config = new HikariConfig();
-    config.setJdbcUrl("jdbc:h2:mem:sample");
-    config.setMaximumPoolSize(20);
-    config.setDriverClassName("org.h2.Driver");
-    dataSource = new HikariDataSource(config);
-    System.out.println("Datasource initialized");
-  }
- **/
+
+  /**
+   * public void start() { System.out.println("Initializing datasource"); HikariConfig config = new
+   * HikariConfig(); config.setJdbcUrl("jdbc:h2:mem:sample"); config.setMaximumPoolSize(20);
+   * config.setDriverClassName("org.h2.Driver"); dataSource = new HikariDataSource(config);
+   * System.out.println("Datasource initialized"); }
+   **/
 
   public void start() {
     System.out.println("Initializing datasource");

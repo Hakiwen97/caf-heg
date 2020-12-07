@@ -18,14 +18,14 @@ Feature: Who get the family allowance
     When i ask who has the right
     Then the parent with the parental authority gets the right
 #C
-   Scenario: two parents with a lucrative activity,they are separated and one live with the child
-     Given two parents
-     And two parents have a lucrative activity
-     And  they both have the parental authority
-     And  they are separated
-     And one live with the child
-     When i ask who has the right
-     Then the parent who lives with the child get the right
+  Scenario: two parents with a lucrative activity,they are separated and one live with the child
+    Given two parents
+    And two parents have a lucrative activity
+    And  they both have the parental authority
+    And  they are separated
+    And one live with the child
+    When i ask who has the right
+    Then the parent who lives with the child get the right
 #D
   Scenario: two parents with a lucrative activity,they both have the parental authority,they are together and one works in the same canton than the child's residence
     Given two parents

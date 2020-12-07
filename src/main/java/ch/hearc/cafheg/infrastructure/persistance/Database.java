@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Database {
+
   private static final Logger logger = LoggerFactory.getLogger(Database.class);
   private static DataSource dataSource;
   private static ThreadLocal<Connection> connection = new ThreadLocal<>();

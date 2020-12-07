@@ -23,7 +23,8 @@ public class AllocationService {
   private final VersementMapper versementMapper;
 
 
-  public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper, VersementMapper versementMapper) {
+  public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper,
+      VersementMapper versementMapper) {
     this.allocataireMapper = allocataireMapper;
     this.allocationMapper = allocationMapper;
     this.versementMapper = versementMapper;
@@ -128,7 +129,7 @@ public class AllocationService {
       return false;
     } else {
       allocataireMapper.deleteAllocataire(parentId);
-     logger.info("L'allocataire a été supprimé");
+      logger.info("L'allocataire a été supprimé");
       return true;
 
     }

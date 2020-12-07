@@ -1,27 +1,27 @@
 <configuration>
-  <!--CONSOLE-->
-  <appender name="STDOUT" classe="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%d HH:mm:ss.SSS } [%thread] 5level %logger{36} msg%n</pattern>
-    </encoder>
-  </appender>
 
-  <appender name="STDERRORFILE" classe="ch.qos.logback.core.FileAppender">
+  <appender name="STDERRORFILE" class="ch.qos.logback.core.FileAppender">
     <file>err.log</file>
     <append>true</append>
     <encoder>
-      <pattern>%d HH:mm:ss.SSS } [%thread] 5level %logger{36} msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS } [%thread] 5level %logger{36} msg%n</pattern>
     </encoder>
   </appender>
 
-  <appender name="STDINFOFILEDAY" classe="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>cafheg.log</file>
-    <rollingPolicy classe="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>cafheg_%d{yyyy-MM-dd}.log</fileNamePattern>
-      <encoder>
-        <pattern>%d HH:mm:ss.SSS } [%thread] 5level %logger{36} msg%n</pattern>
-      </encoder>
-    </rollingPolicy>
+  <appender name="STDINFOFILEDAY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+  <file>cafheg.log</file>
+  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+    <fileNamePattern>cafheg.%d{yyyy-MM-dd}.log</fileNamePattern>
+  </rollingPolicy>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS } [%thread] 5level %logger{36} msg%n</pattern>
+    </encoder>
+</appender>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS } [%thread] 5level %logger{36} msg%n</pattern>
+    </encoder>
   </appender>
 
 

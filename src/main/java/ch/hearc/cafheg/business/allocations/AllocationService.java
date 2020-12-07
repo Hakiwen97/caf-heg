@@ -8,8 +8,12 @@ import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AllocationService {
+
+  private static Logger logger = LoggerFactory.getLogger(AllocationService.class);
 
   private static final String PARENT_1 = "Parent1";
   private static final String PARENT_2 = "Parent2";
@@ -19,8 +23,7 @@ public class AllocationService {
   private final VersementMapper versementMapper;
 
 
-  public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper,
-      VersementMapper versementMapper) {
+  public AllocationService(AllocataireMapper allocataireMapper, AllocationMapper allocationMapper, VersementMapper versementMapper) {
     this.allocataireMapper = allocataireMapper;
     this.allocationMapper = allocationMapper;
     this.versementMapper = versementMapper;
@@ -37,7 +40,7 @@ public class AllocationService {
 
 
   public Parent getParentDroitAllocation(ParentDroitAllocation droit) {
-
+    logger.info("Décision du droit d'allocation débuté");
     Parent aDroit = null;
 
     // 1Parent a une activité lucrative
@@ -109,6 +112,7 @@ public class AllocationService {
         }
       }
     }
+    logger.info("Le parent bénéficiant du droit est : " + aDroit.toString());
     return aDroit;
   }
 
@@ -120,9 +124,11 @@ public class AllocationService {
 
     reponse = stream.anyMatch(vers -> (Objects.equals(vers.getParentId(), parentId)));
     if (reponse) {
+      logger.debug("Tentative de suppression d'un allocataire avec versements");
       return false;
     } else {
       allocataireMapper.deleteAllocataire(parentId);
+     logger.info("L'allocataire a été supprimé");
       return true;
 
     }
@@ -134,11 +140,14 @@ public class AllocationService {
   public boolean updateAllocataire(Allocataire allocataire, String nom, String prenom) {
     boolean reponse = false;
     if (allocataire.getPrenom().equals(prenom) && allocataire.getNom().equals(nom)) {
+      logger.debug("Changement impossible : Ne concerne pas le changement du nom ou prénom");
       reponse = false;
     } else if (!allocataire.getPrenom().equals(prenom) && !allocataire.getNom().equals(nom)) {
+      logger.debug("Impossible de changer le nom et le prénom");
       reponse = false;
     } else {
       allocataireMapper.updateAllocataire(allocataire.getNoAVS().getValue(), nom, prenom);
+      logger.info("Changement accepté. Mise à jour effectuée");
       reponse = true;
     }
     return reponse;

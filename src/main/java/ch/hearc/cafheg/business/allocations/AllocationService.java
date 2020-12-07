@@ -6,6 +6,7 @@ import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class AllocationService {
@@ -111,18 +112,17 @@ public class AllocationService {
     return aDroit;
   }
 
-  public boolean deleteAllocataire(long id) {
+  public boolean deleteAllocataire(long parentId) {
+
     boolean reponse = false;
     List<VersementParentEnfant> versements = versementMapper.findVersementParentEnfant();
     Stream<VersementParentEnfant> stream = versements.stream();
-    //reponse=stream.anyMatch(vers -> vers.equals(id));
-    reponse = stream.anyMatch(vers -> vers.getParentId() == id);
 
-    if (reponse == true) {
-      System.out.println("pas possible de supprimer");
+    reponse = stream.anyMatch(vers -> (Objects.equals(vers.getParentId(), parentId)));
+    if (reponse) {
       return false;
     } else {
-      allocataireMapper.deleteAllocataire(id);
+      allocataireMapper.deleteAllocataire(parentId);
       return true;
 
     }

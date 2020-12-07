@@ -326,7 +326,6 @@ class AllocationServiceTest {
     boolean rep = allocationService.deleteAllocataire(1);
     assertFalse(rep);
 
-
   }
 
   @Test

@@ -42,13 +42,14 @@ public class Database {
     return dataSource;
   }
 
-  /**
-   * public void start() { logger.info("Initializing datasource"); HikariConfig config = new
-   * HikariConfig(); config.setJdbcUrl("jdbc:h2:mem:sample"); config.setMaximumPoolSize(20);
-   * config.setDriverClassName("org.h2.Driver"); dataSource = new HikariDataSource(config);
-   * logger.info("Datasource initialized");}
-   **/
 
+    public void start() { logger.info("Initializing datasource"); HikariConfig config = new
+    HikariConfig(); config.setJdbcUrl("jdbc:h2:mem:sample"); config.setMaximumPoolSize(20);
+    config.setDriverClassName("org.h2.Driver"); dataSource = new HikariDataSource(config);
+   logger.info("Datasource initialized");}
+
+
+  /**
   public void start() {
     logger.info("Initializing datasource");
     HikariConfig config = new HikariConfig();
@@ -58,4 +59,5 @@ public class Database {
     dataSource = new HikariDataSource(config);
     logger.info("Datasource initialized");
   }
+   **/
 }

@@ -15,6 +15,12 @@ public class Migrations {
     this.database = database;
     this.forTest = false;
   }
+  public Migrations(Database database, Boolean forTest) {
+    this.database = database;
+    this.forTest = forTest;
+  }
+
+
 
   public void start() {
     logger.debug("Doing migrations");

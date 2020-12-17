@@ -1,6 +1,6 @@
 <dataset>
     <Allocataire ID="1" NOM="Geiser" PRENOM="Arnaud"/>
     <Allocataire ID="2" NOM="Geiser" PRENOM="Chloé"/>
-    <Allocataire ID="3" NOM="Sigrist" PRENOM="Adrien"/>
-    <Allocataire ID="4" NOM="Henry" PRENOM="Oceane"/>
+    <Allocataire ID="3" NOM="Geiser" PRENOM="Adrien"/>
+    <Allocataire ID="4" NOM="Geiser" PRENOM="Oceane"/>
 </dataset>

@@ -37,22 +37,6 @@ public class AllocataireMapper extends Mapper {
     }
   }
 
-  public List<Allocataire> findAll()throws SQLException{
-    Connection connection = getConnection();
-    PreparedStatement preparedStatement;
-    preparedStatement = connection.prepareStatement("SELECT NOM, PRENOM, NO_AVS FROM ALLOCATAIRES");
-    List<Allocataire> allocataires = new ArrayList<>();
-    try(ResultSet resultSet = preparedStatement.executeQuery()){
-      while (resultSet.next()) {
-        allocataires
-            .add(new Allocataire(new NoAVS(resultSet.getString(3)), resultSet.getString(2),
-                resultSet.getString(1)));
-      }
-      return allocataires;
-    } catch (SQLException e){
-      throw new RuntimeException(e);
-    }
-  }
 
   public Allocataire findById(long id) {
     Connection connection = getConnection();

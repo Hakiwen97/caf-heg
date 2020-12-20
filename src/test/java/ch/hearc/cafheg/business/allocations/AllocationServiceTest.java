@@ -11,6 +11,7 @@ import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
@@ -281,7 +282,7 @@ class AllocationServiceTest {
 
 
   @Test
-  void findAllAllocataires_GivenEmptyAllocataires_ShouldBeEmpty() {
+  void findAllAllocatairesByName_GivenEmptyAllocataires_ShouldBeEmpty() {
     Mockito.when(allocataireMapper.findAll("Geiser")).thenReturn(Collections.emptyList());
     List<Allocataire> all = allocationService.findAllAllocataires("Geiser");
   }

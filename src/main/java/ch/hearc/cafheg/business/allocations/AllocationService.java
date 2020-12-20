@@ -5,6 +5,7 @@ import ch.hearc.cafheg.business.versements.VersementParentEnfant;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -34,6 +35,7 @@ public class AllocationService {
   public List<Allocataire> findAllAllocataires(String likeNom) {
     return allocataireMapper.findAll(likeNom);
   }
+
 
   public List<Allocation> findAllocationsActuelles() {
     return allocationMapper.findAll();

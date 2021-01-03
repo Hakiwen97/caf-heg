@@ -1,60 +1,59 @@
 package ch.hearc.cafheg.business.allocations;
 
-import java.math.BigDecimal;
-
 public class ParentDroitAllocation {
-    private String enfantResidance;
 
-    public Canton getEnfantCanton() {
-        return enfantCanton;
-    }
+  private String childAddress;
+  private Canton childCanton;
+  private boolean parentsTogether;
+  private Parent parent1;
+  private Parent parent2;
 
-    public void setEnfantCanton(Canton enfantCanton) {
-        this.enfantCanton = enfantCanton;
-    }
+  public ParentDroitAllocation(String childAddress, Canton childCanton, boolean parentsTogether,
+      Parent parent1, Parent parent2) {
+    this.childAddress = childAddress;
+    this.childCanton = childCanton;
+    this.parentsTogether = parentsTogether;
+    this.parent1 = parent1;
+    this.parent2 = parent2;
+  }
 
-    private Canton enfantCanton;
-    private boolean parentsEnsemble;
-    private Parent parent1;
-    private Parent parent2;
+  public Canton getChildCanton() {
+    return childCanton;
+  }
 
-    public ParentDroitAllocation(String enfantResidance,Canton enfantCanton, boolean parentsEnsemble, Parent parent1, Parent parent2) {
-        this.enfantResidance = enfantResidance;
-        this.enfantCanton = enfantCanton;
-        this.parentsEnsemble = parentsEnsemble;
-        this.parent1 = parent1;
-        this.parent2 = parent2;
-    }
+  public void setChildCanton(Canton childCanton) {
+    this.childCanton = childCanton;
+  }
 
-    public String getEnfantResidance() {
-        return enfantResidance;
-    }
+  public String getChildAddress() {
+    return childAddress;
+  }
 
-    public void setEnfantResidance(String enfantResidance) {
-        this.enfantResidance = enfantResidance;
-    }
+  public void setChildAddress(String childAddress) {
+    this.childAddress = childAddress;
+  }
 
-    public boolean isParentsEnsemble() {
-        return parentsEnsemble;
-    }
+  public boolean isParentsTogether() {
+    return parentsTogether;
+  }
 
-    public void setParentsEnsemble(boolean parentsEnsemble) {
-        this.parentsEnsemble = parentsEnsemble;
-    }
+  public void setParentsTogether(boolean parentsTogether) {
+    this.parentsTogether = parentsTogether;
+  }
 
-    public Parent getParent1() {
-        return parent1;
-    }
+  public Parent getParent1() {
+    return parent1;
+  }
 
-    public void setParent1(Parent parent1) {
-        this.parent1 = parent1;
-    }
+  public void setParent1(Parent parent1) {
+    this.parent1 = parent1;
+  }
 
-    public Parent getParent2() {
-        return parent2;
-    }
+  public Parent getParent2() {
+    return parent2;
+  }
 
-    public void setParent2(Parent parent2) {
-        this.parent2 = parent2;
-    }
+  public void setParent2(Parent parent2) {
+    this.parent2 = parent2;
+  }
 }

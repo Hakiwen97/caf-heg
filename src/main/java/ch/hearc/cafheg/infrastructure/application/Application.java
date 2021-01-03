@@ -6,7 +6,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -21,7 +20,7 @@ public class Application extends SpringBootServletInitializer {
 
   private static void start() {
     Database database = new Database();
-    Migrations migrations = new Migrations(database);
+    Migrations migrations = new Migrations(database, "classpath:db");
 
     database.start();
     migrations.start();

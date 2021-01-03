@@ -2,18 +2,26 @@ package ch.hearc.cafheg.infrastructure.api;
 
 import static ch.hearc.cafheg.infrastructure.persistance.Database.inTransaction;
 
-import ch.hearc.cafheg.business.allocations.*;
+import ch.hearc.cafheg.business.allocations.Allocataire;
+import ch.hearc.cafheg.business.allocations.Allocation;
+import ch.hearc.cafheg.business.allocations.AllocationService;
+import ch.hearc.cafheg.business.allocations.Parent;
+import ch.hearc.cafheg.business.allocations.ParentDroitAllocation;
 import ch.hearc.cafheg.business.versements.VersementService;
 import ch.hearc.cafheg.infrastructure.pdf.PDFExporter;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import ch.hearc.cafheg.infrastructure.persistance.EnfantMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RESTController {
@@ -22,18 +30,18 @@ public class RESTController {
   private final VersementService versementService;
 
   public RESTController() {
-    this.allocationService = new AllocationService(new AllocataireMapper(), new AllocationMapper());
+    this.allocationService = new AllocationService(new AllocataireMapper(), new AllocationMapper(),
+        new VersementMapper());
     this.versementService = new VersementService(new VersementMapper(), new AllocataireMapper(),
         new PDFExporter(new EnfantMapper()));
   }
 
 
-/**
-  @PostMapping("/droits/quel-parent")
-  public String getParentDroitAllocation(@RequestBody Map<String, Object> params) {
-    return inTransaction(() -> allocationService.getParentDroitAllocation(params));
-  }
- **/
+  /**
+   * @PostMapping("/droits/quel-parent") public String getParentDroitAllocation(@RequestBody
+   * Map<String, Object> params) { return inTransaction(() -> allocationService.getParentDroitAllocation(params));
+   * }
+   **/
 
 //{
 //  "enfantResidance": "",
@@ -57,7 +65,6 @@ public class RESTController {
 //          "independant":
 //}
 //}
-
   @PostMapping("/droits/quel-parent")
   public Parent getParentDroitAllocation(@RequestBody ParentDroitAllocation parent) {
     return inTransaction(() -> allocationService.getParentDroitAllocation(parent));

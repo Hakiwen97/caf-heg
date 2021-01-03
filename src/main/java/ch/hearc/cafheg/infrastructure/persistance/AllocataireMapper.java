@@ -2,7 +2,6 @@ package ch.hearc.cafheg.infrastructure.persistance;
 
 import ch.hearc.cafheg.business.allocations.Allocataire;
 import ch.hearc.cafheg.business.allocations.NoAVS;
-import ch.hearc.cafheg.infrastructure.application.Application;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +37,7 @@ public class AllocataireMapper extends Mapper {
     }
   }
 
+
   public Allocataire findById(long id) {
     Connection connection = getConnection();
     try {
@@ -52,4 +52,39 @@ public class AllocataireMapper extends Mapper {
       throw new RuntimeException(e);
     }
   }
+
+
+  public void deleteAllocataire(long id) {
+    Connection connection = getConnection();
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(
+          "DELETE FROM ALLOCATAIRES WHERE NUMERO=?");
+      preparedStatement.setLong(1, id);
+      Boolean result = preparedStatement.execute();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
+
+  }
+
+  public void updateAllocataire(String avs, String prenom, String nom) {
+    Connection connection = getConnection();
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(
+          "UPDATE ALLOCATAIRES set PRENOM=?,NOM=? WHERE NO_AVS=?");
+
+      preparedStatement.setString(1, prenom);
+      preparedStatement.setString(2, nom);
+      preparedStatement.setString(3, avs);
+      Boolean result = preparedStatement.execute();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
+
+  }
 }
+
+
+

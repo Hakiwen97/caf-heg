@@ -1,27 +1,38 @@
 package ch.hearc.cafheg.infrastructure.persistance;
 
-import java.util.List;
 import org.flywaydb.core.Flyway;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Migrations {
 
-  private final Database database;
-  private final boolean forTest;
+  private static final Logger logger = LoggerFactory.getLogger(Migrations.class);
 
-  public Migrations(Database database) {
+  private final Database database;
+  // private final boolean forTest;
+  private final String location;
+
+
+  public Migrations(Database database, String location) {
     this.database = database;
-    this.forTest = false;
+    // this.forTest = false;
+    this.location = location;
   }
+//  public Migrations(Database database, Boolean forTest) {
+//    this.database = database;
+//    this.forTest = forTest;
+//  }
+
 
   public void start() {
-    System.out.println("Doing migrations");
+    logger.debug("Doing migrations");
 
-    String location;
-    if(forTest) {
-      location =  "classpath:db/ddl";
-    } else {
-      location =  "classpath:db";
-    }
+//    String location;
+//    if (forTest) {
+//      location = "classpath:db/ddl";
+//    } else {
+//      location = "classpath:db";
+//    }
 
     Flyway flyway = Flyway.configure()
         .dataSource(database.getDataSource())
@@ -29,7 +40,7 @@ public class Migrations {
         .load();
 
     flyway.migrate();
-    System.out.println("Migrations done");
+    logger.debug("Migrations done");
   }
 
 }

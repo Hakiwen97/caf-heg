@@ -22,6 +22,7 @@ class VersementServiceTest {
   private VersementMapper versementMapper;
   private AllocataireMapper allocataireMapper;
   private EnfantMapper enfantMapper;
+
   private PDFExporter pdfExporter;
 
   @BeforeEach

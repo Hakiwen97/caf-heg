@@ -22,6 +22,8 @@ public class Parent {
 
   }
 
+
+
   public boolean isFreelancer() {
     return isFreelancer;
   }

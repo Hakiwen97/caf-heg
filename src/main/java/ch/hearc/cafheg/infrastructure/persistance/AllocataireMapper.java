@@ -60,7 +60,7 @@ public class AllocataireMapper extends Mapper {
       PreparedStatement preparedStatement = connection.prepareStatement(
           "DELETE FROM ALLOCATAIRES WHERE NUMERO=?");
       preparedStatement.setLong(1, id);
-      ResultSet resultSet = preparedStatement.executeQuery();
+      Boolean result = preparedStatement.execute();
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -72,12 +72,12 @@ public class AllocataireMapper extends Mapper {
     Connection connection = getConnection();
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(
-          "UPDATE ALLOCATAIRE set PRENOM=?,NOM=? WHERE NO_AVS=?");
+          "UPDATE ALLOCATAIRES set PRENOM=?,NOM=? WHERE NO_AVS=?");
 
       preparedStatement.setString(1, prenom);
       preparedStatement.setString(2, nom);
       preparedStatement.setString(3, avs);
-      ResultSet resultSet = preparedStatement.executeQuery();
+      Boolean result = preparedStatement.execute();
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

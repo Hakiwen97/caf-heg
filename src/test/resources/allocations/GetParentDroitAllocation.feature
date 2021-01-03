@@ -18,7 +18,7 @@ Feature: Who get the family allowance
     When i ask who has the right
     Then the parent with the parental authority gets the right
 #C
-  Scenario: two parents with a lucrative activity,they are separated and one live with the child
+  Scenario: two parents with a lucrative activity, both have parental authority,they are separated and one live with the child
     Given two parents
     And two parents have a lucrative activity
     And  they both have the parental authority
@@ -45,7 +45,6 @@ Feature: Who get the family allowance
     And  none parents work in the child's residence
     When i ask who has the right
     Then the parent with the highest salary get the right
-    #par sur
 #F
   Scenario: two parents with a lucrative activity,they both have the parental authority, they are together and they are both freelance
     Given two parents

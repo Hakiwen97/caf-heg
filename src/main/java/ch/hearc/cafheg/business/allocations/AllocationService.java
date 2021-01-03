@@ -5,7 +5,6 @@ import ch.hearc.cafheg.business.versements.VersementParentEnfant;
 import ch.hearc.cafheg.infrastructure.persistance.AllocataireMapper;
 import ch.hearc.cafheg.infrastructure.persistance.AllocationMapper;
 import ch.hearc.cafheg.infrastructure.persistance.VersementMapper;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -97,7 +96,6 @@ public class AllocationService {
             aDroit = droit.getParent2();
           } else if (resultOfComparison == 0) {
             aDroit = droit.getParent1();
-            // Choix de conception voir Arnaud
           } else {
             aDroit = droit.getParent1();
           }
@@ -109,7 +107,6 @@ public class AllocationService {
           aDroit = droit.getParent2();
         } else if (resultOfComparison == 0) {
           aDroit = droit.getParent1();
-          // Choix de conception voir Arnaud
         } else {
           aDroit = droit.getParent1();
         }

@@ -99,14 +99,14 @@ public class MyTestsIT {
     );
 
     Database.inTransaction(
-        () -> allocationService.updateAllocataire(allocataireToChange,"Geyser","Kendrick")
+        () -> allocationService.updateAllocataire(allocataireToChange, "Geyser", "Kendrick")
     );
 
     Allocataire allocataireAfterChange = Database.inTransaction(
         () -> allocataireMapper.findById(1)
     );
 
-    assertNotEquals(allocataireBeforeChange,allocataireAfterChange);
+    assertNotEquals(allocataireBeforeChange, allocataireAfterChange);
 
   }
 }

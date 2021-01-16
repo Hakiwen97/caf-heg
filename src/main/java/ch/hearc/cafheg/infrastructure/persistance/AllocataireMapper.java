@@ -65,7 +65,6 @@ public class AllocataireMapper extends Mapper {
       throw new RuntimeException(e);
     }
 
-
   }
 
   public void updateAllocataire(String avs, String prenom, String nom) {

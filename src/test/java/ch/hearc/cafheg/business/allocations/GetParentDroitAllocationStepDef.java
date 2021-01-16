@@ -22,7 +22,6 @@ public class GetParentDroitAllocationStepDef {
   private Parent rightfulParent;
 
 
-  //A
   @Given("two parents")
   public void twoParents() {
     parent1 = new Parent(true, true, true, "Neuchâtel", Canton.NE, new BigDecimal(2500));
